@@ -3,22 +3,22 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "lib.h"
+#include "core.h"
 
 typedef bool (*Test)(void);
 
-bool add_test_one(void);
-bool add_test_two(void);
-bool add_test_three(void);
+bool always_pass(void);
+bool array_get_test(void);
 
 int main(void) {
     bool has_prev_test_passed = true;
     uint32_t num_tests_failed = 0;
     bool all_passed = true;
 
-    Test tests[] = { &add_test_one, &add_test_two, &add_test_three };
+    Test tests[] = { &always_pass, &array_get_test };
+    uint32_t num_tests = 2;
 
-    for (size_t i = 0; i < 3; i++) {
+    for (size_t i = 0; i < num_tests; i++) {
         has_prev_test_passed = tests[i]();
         all_passed = all_passed && has_prev_test_passed;
 
@@ -37,32 +37,18 @@ int main(void) {
     return EXIT_SUCCESS;
 }
 
-bool add_test_one(void) {
-    int32_t x = 3;
-    int32_t y = 5;
-    int32_t expected = 8;
-
-    int32_t actual = add(x, y);
-
-    return actual == expected;
+bool always_pass(void) {
+    return true;
 }
 
-bool add_test_two(void) {
-    int32_t x = 0;
-    int32_t y = 0;
-    int32_t expected = 0;
+bool array_get_test(void) {
+    i32 nums[] = {-2, 0, 1, 5, 8};
+    usize length = 5;
+    Array arr = Array_new(nums, length);
+    usize index = 3;
+    i32 expected = 5;
 
-    int32_t actual = add(x, y);
-
-    return actual == expected;
-}
-
-bool add_test_three(void) {
-    int32_t x = -5;
-    int32_t y = 3;
-    int32_t expected = -2;
-
-    int32_t actual = add(x, y);
+    i32 actual = ARRAY_GET(i32, arr, index);
 
     return actual == expected;
 }

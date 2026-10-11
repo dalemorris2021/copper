@@ -16,7 +16,7 @@ pub fn build(b: *std.Build) void {
     test_module.addCSourceFiles(.{
         .files = &.{
             "src/test.c",
-            "src/lib.c",
+            "src/array.c",
         },
         .flags = &.{ "-std=c99", "-g", "-Wall", "-Wextra", "-Wpedantic", "-Werror" },
     });
@@ -32,7 +32,7 @@ pub fn build(b: *std.Build) void {
 
     lib_module.addCSourceFiles(.{
         .files = &.{
-            "src/lib.c",
+            "src/array.c",
         },
         .flags = &.{ "-std=c99", "-g", "-Wall", "-Wextra", "-Wpedantic", "-Werror" },
     });
