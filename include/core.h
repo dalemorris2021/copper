@@ -2,6 +2,7 @@
 #define COPPER_CORE_H
 
 #include "type.h"
-#include "array.h"
+#include "option.h"
+#include "result.h"
 
 #endif // COPPER_CORE_H
